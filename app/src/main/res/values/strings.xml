@@ -8,4 +8,5 @@
     <string name="pw_required">Password is required</string>
     <string name="invalid_username_pw">Invalid username or password</string>
     <string name="instagram_logo">Instagram Logo</string>
+    <string name="log_out">Log out</string>
 </resources>
