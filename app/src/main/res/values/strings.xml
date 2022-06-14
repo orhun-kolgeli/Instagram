@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Parstagram</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+
+    <string name="username_required">Username is required</string>
+    <string name="pw_required">Password is required</string>
+    <string name="invalid_username_pw">Invalid username or password</string>
+</resources>
