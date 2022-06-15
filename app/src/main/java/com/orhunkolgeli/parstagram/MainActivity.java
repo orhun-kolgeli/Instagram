@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivPostImg;
     Button btnTakePic;
     EditText etDescription;
+    Button btnGotoFeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +51,25 @@ public class MainActivity extends AppCompatActivity {
         ivPostImg = findViewById(R.id.ivPostImg);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnLogout = findViewById(R.id.btnLogout);
+        btnGotoFeed = findViewById(R.id.btnGotoFeed);
+        btnGotoFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to FeedActivity
+                Intent intent = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
         btnTakePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchCamera();
-
             }
         });
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String user = ParseUser.getCurrentUser().getUsername().toString();
-                Toast.makeText(MainActivity.this, user, Toast.LENGTH_SHORT).show();
                 ParseUser.logOutInBackground();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -157,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
                 etDescription.setText("");
                 // Clear the image from user's view
                 ivPostImg.setImageResource(0);
+                Toast.makeText(MainActivity.this, "Post submitted successfully",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

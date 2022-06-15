@@ -13,4 +13,6 @@
     <string name="take_picture">Take picture</string>
     <string name="submit">Submit</string>
     <string name="picture">Picture</string>
+    <string name="go_to_your_feed">Go to your feed</string>
+    <string name="image">Image</string>
 </resources>
