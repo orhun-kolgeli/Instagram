@@ -16,9 +16,6 @@ import com.parse.ParseFile;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-    TextView tvUsername;
-    ImageView ivImage;
-    TextView tvDescription;
     Context context;
     List<Post> posts;
 
@@ -26,7 +23,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.context = context;
         this.posts = posts;
     }
-
 
     @NonNull
     @Override
@@ -47,6 +43,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvUsername;
+        ImageView ivImage;
+        TextView tvDescription;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
@@ -64,9 +63,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Glide.with(context)
                         .load(image.getUrl())
                         .into(ivImage);
-            } else {
-                // Placeholder image
-                ivImage.setImageResource(R.drawable.insta_icon);
             }
         }
     }
