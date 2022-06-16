@@ -5,13 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvPosts;
     PostAdapter adapter;
     List<Post> allPosts;
+    Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,19 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         // Query posts from Parse
         queryPosts();
+
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = ParseUser.getCurrentUser().getUsername().toString();
+                ParseUser.logOutInBackground();
+                Intent intent = new Intent(FeedActivity.this, LoginActivity.class);
+                startActivity(intent);
+                // Prevent user from using back button to go back to Main Activity after logout
+                finish();
+            }
+        });
 
         // Set up swipe-to-refresh
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
