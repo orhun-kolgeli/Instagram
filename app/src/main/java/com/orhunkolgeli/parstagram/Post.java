@@ -1,9 +1,13 @@
 package com.orhunkolgeli.parstagram;
 
+import android.util.Log;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.Date;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {

@@ -1,6 +1,8 @@
 package com.orhunkolgeli.parstagram;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -64,6 +69,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         .load(image.getUrl())
                         .into(ivImage);
             }
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("description", post.getDescription());
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    intent.putExtra("date", df.format(post.getCreatedAt()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -78,4 +93,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         posts.addAll(list);
         notifyDataSetChanged();
     }
+
+
 }
