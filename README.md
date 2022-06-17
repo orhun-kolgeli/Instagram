@@ -24,8 +24,8 @@ The following **stretch** features are implemented:
 - [X] Style the feed to look like the real Instagram feed.
 - [X] User can load more posts once they reach the bottom of the feed using endless scrolling.
 - [x] User should switch between different tabs using fragments and a Bottom Navigation View.
-  - [x] Feed Tab 
-  - [x] Profile Tab
+  - [x] Feed Tab showing all posts from all users
+  - [x] Profile Tab showing current user's profile picture and username
 - [X] Show the username and creation time for each post
 - User Profiles:
   - [X] Display the profile photo with each post
