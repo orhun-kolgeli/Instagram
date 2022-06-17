@@ -56,6 +56,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView tvUsername;
         TextView tvUsername2;
         TextView tvDescription;
+        TextView tvTimestamp;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
@@ -63,6 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
         }
 
         public void bind(Post post) {
@@ -70,6 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvUsername2.setText(post.getUser().getUsername());
+            tvTimestamp.setText(Post.calculateTimeAgo(post.getCreatedAt()));
             // Load image from Parse database
             ParseFile image = post.getImage();
             if (image != null) {
@@ -82,8 +85,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("description", post.getDescription());
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                    intent.putExtra("date", df.format(post.getCreatedAt()));
+                    intent.putExtra("date", Post.calculateTimeAgo(post.getCreatedAt()));
                     context.startActivity(intent);
                 }
             });

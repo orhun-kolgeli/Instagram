@@ -177,24 +177,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void queryPosts() {
-        // Specify which class to query
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        // Include user information
-        query.include(Post.KEY_USER);
-        // To get Instagram posts from the database, call findInBackground
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) { // exception thrown
-                    Log.e(TAG, "Couldn't get posts", e);
-                    return;
-                }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + " User: " + post.getUser().getUsername());
-                }
-            }
-        });
-
-    }
 }
