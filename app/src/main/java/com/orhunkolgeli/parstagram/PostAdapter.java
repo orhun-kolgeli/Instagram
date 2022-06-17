@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.parse.ParseFile;
 
 import java.text.DateFormat;
@@ -48,20 +51,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUsername;
         ImageView ivImage;
+        ImageView ivProfilePic;
+        TextView tvUsername;
+        TextView tvUsername2;
         TextView tvDescription;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvUsername2 = itemView.findViewById(R.id.tvUsername2);
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
         }
 
         public void bind(Post post) {
             // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            tvUsername2.setText(post.getUser().getUsername());
             // Load image from Parse database
             ParseFile image = post.getImage();
             if (image != null) {
@@ -79,6 +87,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     context.startActivity(intent);
                 }
             });
+            // Load profile picture from Parse database
+            ParseFile profile_pic = post.getUser().getParseFile("profile_pic");
+            if (profile_pic != null) {
+                Glide.with(context)
+                        .load(profile_pic.getUrl())
+                        .circleCrop()
+                        .into(ivProfilePic);
+            }
         }
     }
 

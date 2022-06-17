@@ -82,7 +82,7 @@ public class FeedActivity extends AppCompatActivity {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(10);
+        query.setLimit(20);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -94,12 +94,10 @@ public class FeedActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
                     Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
                 }
-
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
