@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -39,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
     Button btnTakePic;
     EditText etDescription;
     Button btnGotoFeed;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pb = (ProgressBar) findViewById(R.id.pbLoading);
         etDescription = findViewById(R.id.etDescription);
         btnTakePic = findViewById(R.id.btnTakePic);
         ivPostImg = findViewById(R.id.ivPostImg);
@@ -91,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 ParseUser user = ParseUser.getCurrentUser();
+                // Clear the description EditText
+                etDescription.setText("");
+                // Clear the image from user's view
+                ivPostImg.setImageResource(0);
+                // Show progress bar
+                pb.setVisibility(ProgressBar.VISIBLE);
                 savePost(description, user, photoFile);
             }
         });
@@ -159,12 +168,10 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 Log.i(TAG, "Successfully saved post");
-                // Clear the description EditText
-                etDescription.setText("");
-                // Clear the image from user's view
-                ivPostImg.setImageResource(0);
                 Toast.makeText(MainActivity.this, "Post submitted successfully",
                         Toast.LENGTH_SHORT).show();
+                // Hide ProgressBar upon completion
+                pb.setVisibility(ProgressBar.INVISIBLE);
             }
         });
 
