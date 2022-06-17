@@ -1,6 +1,9 @@
 package com.orhunkolgeli.parstagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -8,10 +11,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -22,13 +27,15 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
     public static final String TAG = "FeedActivity";
-    public static final int QUERY_ITEM_COUNT = 5;
+    public static final int QUERY_ITEM_COUNT = 20;
     SwipeRefreshLayout swipeContainer;
     RecyclerView rvPosts;
     PostAdapter adapter;
     List<Post> allPosts;
     Button btnLogout;
     EndlessRecyclerViewScrollListener scrollListener;
+    BottomNavigationView bottomNavigationView;
+    FragmentManager fragmentManager;
 
 
     @Override
@@ -37,6 +44,27 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         // Initialize recyclerview
         rvPosts = findViewById(R.id.rvPosts);
+        // Initialize bottomNavigationView and fragmentManager
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        fragmentManager = getSupportFragmentManager();
+        final Fragment fragment1 = new ProfileFragment();
+        final Fragment fragment2 = new BlankFragment();
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                if (item.getItemId() == R.id.action_profile) {
+                    fragment = fragment1;
+                } else {
+                    fragment = fragment2;
+                }
+                fragmentManager.beginTransaction().replace(R.id.rlContainer, fragment).commit();
+                return true;
+            }
+        });
+
+
+
         // Initialize the array to hold posts
         allPosts = new ArrayList<>();
         // create a PostsAdapter
@@ -128,5 +156,13 @@ public class FeedActivity extends AppCompatActivity {
                 adapter.notifyItemRangeInserted(page*QUERY_ITEM_COUNT, QUERY_ITEM_COUNT);
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() == 0) {
+            this.finish();
+        } else {
+            fragmentManager.popBackStack();
+        }
     }
 }
