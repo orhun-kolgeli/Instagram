@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         etDescription = findViewById(R.id.etDescription);
         btnTakePic = findViewById(R.id.btnTakePic);
         ivPostImg = findViewById(R.id.ivPostImg);
+        // Hide empty imageView
+        ivPostImg.setVisibility(View.GONE);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnLogout = findViewById(R.id.btnLogout);
         btnGotoFeed = findViewById(R.id.btnGotoFeed);
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // Load the taken image into a the ImageView ivPostImg
                 ivPostImg.setImageBitmap(takenImage);
+                ivPostImg.setVisibility(View.VISIBLE);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -172,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 // Hide ProgressBar upon completion
                 pb.setVisibility(ProgressBar.INVISIBLE);
+                ivPostImg.setVisibility(View.GONE);
             }
         });
 
