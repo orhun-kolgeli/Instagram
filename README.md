@@ -1,6 +1,6 @@
-# Project 3 - *Instagram*
+# Project 3 - *Parstagram*
 
-**Instagram** is a photo sharing app using Parse as its backend.
+**Parstagram** is a photo sharing app using Parse as its backend.
 
 Time spent: **~25** hours spent in total
 
@@ -30,11 +30,6 @@ The following **stretch** features are implemented:
 - User Profiles:
   - [X] Display the profile photo with each post
 - [X] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
-
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1. Best practices while using fragments
-2. Communicating data between fragments
 
 ## Video Walkthrough
 
